@@ -5,7 +5,9 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Class ProxyOutboundHandler.
@@ -15,17 +17,26 @@ public class ProxyOutboundHandler extends AbstractProxyHandler {
 	/** The inbound channel. */
 	private final Channel inboundChannel;
 
+	/** The Constant LOG. */
+	private static final Logger LOG = LoggerFactory
+			.getLogger(ProxyOutboundHandler.class);
+
 	/**
 	 * The Constructor.
 	 *
-	 * @param inboundChannel the inbound channel
+	 * @param inboundChannel
+	 *            the inbound channel
 	 */
 	public ProxyOutboundHandler(Channel inboundChannel) {
 		this.inboundChannel = inboundChannel;
 	}
 
-	/* (non-Javadoc)
-	 * @see io.netty.channel.ChannelInboundHandlerAdapter#channelActive(io.netty.channel.ChannelHandlerContext)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * io.netty.channel.ChannelInboundHandlerAdapter#channelActive(io.netty.
+	 * channel.ChannelHandlerContext)
 	 */
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) {
@@ -33,8 +44,12 @@ public class ProxyOutboundHandler extends AbstractProxyHandler {
 		ctx.write(Unpooled.EMPTY_BUFFER);
 	}
 
-	/* (non-Javadoc)
-	 * @see io.netty.channel.ChannelInboundHandlerAdapter#channelRead(io.netty.channel.ChannelHandlerContext, java.lang.Object)
+	/**
+	 * Read from the outbound channel and forward that information back to inbound channel 
+	 * 
+	 * @see
+	 * io.netty.channel.ChannelInboundHandlerAdapter#channelRead(io.netty.channel
+	 * .ChannelHandlerContext, java.lang.Object)
 	 */
 	@Override
 	public void channelRead(final ChannelHandlerContext ctx, Object msg) {
@@ -51,20 +66,17 @@ public class ProxyOutboundHandler extends AbstractProxyHandler {
 				});
 	}
 
-	/* (non-Javadoc)
-	 * @see io.netty.channel.ChannelInboundHandlerAdapter#channelInactive(io.netty.channel.ChannelHandlerContext)
+	/**
+	 * When Channel is no longer active it is time to flush and close inbound channel
+	 * 
+	 * 
+	 * @see io.netty.channel.ChannelInboundHandlerAdapter#channelInactive(io.netty
+	 *      .channel.ChannelHandlerContext)
 	 */
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) {
+		LOG.debug("Channel is no longer active, closing channnel");
 		closeOnFlush(inboundChannel);
 	}
 
-	/* (non-Javadoc)
-	 * @see io.netty.channel.ChannelInboundHandlerAdapter#exceptionCaught(io.netty.channel.ChannelHandlerContext, java.lang.Throwable)
-	 */
-	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-		cause.printStackTrace();
-		closeOnFlush(ctx.channel());
-	}
 }

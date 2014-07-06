@@ -21,10 +21,11 @@ import com.firegnom.proxy.protocol.ServerMessageDecoder;
 import com.firegnom.proxy.protocol.ServerMessageEncoder;
 
 /**
- * The Class Server is responsible for setting up a server which listens on tcp
- * socket specified as a parameter . Server is very simple it takes recieved
- * message and to number it adds 321 and to string it append " <SEEN BY SERVER>"
- * after that it sends response to the client with modified message
+ * The Server class is responsible for setting up a server which listens on TCP
+ * socket specified as a parameter in constructor . Server is very simple it
+ * listens for the message from the client , after that it adds 321 to number in
+ * the message and to append's &quot; &lt;SEEN BY SERVER&gt;&quot; to String in
+ * the message after that it sends modified response back to the client.
  */
 public class Server {
 
@@ -48,7 +49,8 @@ public class Server {
 	}
 
 	/**
-	 * Run.
+	 * Run is the main function of the server responsible for creating two
+	 * thread pools and binding to port specified during object construction
 	 *
 	 * @throws Exception
 	 *             the exception
@@ -63,7 +65,8 @@ public class Server {
 			bootStrap.group(bossGroup, workerGroup)
 					.channel(NioServerSocketChannel.class)
 					.option(ChannelOption.SO_BACKLOG, 100)
-					.handler(new LoggingHandler(LogLevel.INFO))
+					//This handler is used for debugging purposes
+					.handler(new LoggingHandler(LogLevel.DEBUG))
 					.childHandler(new ChannelInitializer<SocketChannel>() {
 						@Override
 						public void initChannel(SocketChannel ch)
@@ -91,18 +94,4 @@ public class Server {
 
 	}
 
-	
-	/**
-	 * The main method. starting server 
-	 * 
-	 * @param args
-	 *            the args
-	 * @throws Exception
-	 *             the exception
-	 */
-	//TODO move this to separate class ServerRunner as it is not a vital part of the server  
-	public static void main(String[] args) throws Exception {
-		Server server = new Server(49001);
-		server.run();
-	}
 }

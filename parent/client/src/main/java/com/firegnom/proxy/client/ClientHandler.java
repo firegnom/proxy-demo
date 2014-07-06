@@ -11,7 +11,6 @@ import com.firegnom.proxy.protocol.ServerMessage;
 public class ClientHandler extends ChannelInboundHandlerAdapter {
 
 	private final ServerMessage message;
-	private ServerMessage response;
 	private ResponseListener responseListener;
 
 	private static final Logger LOG = LoggerFactory

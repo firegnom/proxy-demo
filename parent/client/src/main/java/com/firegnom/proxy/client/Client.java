@@ -12,21 +12,63 @@ import org.slf4j.LoggerFactory;
 
 import com.firegnom.proxy.protocol.ServerMessage;
 
+/**
+ * The Class Client.
+ */
 public class Client {
+
+	/** The server port. */
 	private int serverPort;
+
+	/** The server address. */
 	private String serverAddress = "localhost";
 
+	/**
+	 * The Constructor.
+	 *
+	 * @param serverPort
+	 *            the server port
+	 * @param serverAddress
+	 *            the server address
+	 */
+	public Client(int serverPort, String serverAddress) {
+		this.serverPort = serverPort;
+		this.serverAddress = serverAddress;
+	}
+
+	/**
+	 * The Constructor takes only one parameter and uses &quot;localhost&quot;
+	 * as a .
+	 *
+	 * @param serverPort
+	 *            the server port
+	 */
 	public Client(int serverPort) {
 		this.serverPort = serverPort;
 	}
-	
+
+	/** The Constant LOG. */
 	private static final Logger LOG = LoggerFactory.getLogger(Client.class);
 
-	public void send(ServerMessage m, ResponseListener listener) throws Exception {
-
+	/**
+	 * Send.
+	 *
+	 * @param m
+	 *            the m
+	 * @param listener
+	 *            the listener
+	 * @throws Exception
+	 *             the exception
+	 */
+	public void send(ServerMessage m, ResponseListener listener)
+			throws Exception {
+		LOG.debug("Sending a message to server");
 		// Configure the client.
+		// Setup Thread factory for the client
 		EventLoopGroup group = new NioEventLoopGroup();
-		ClientInitializer clientInitializer = new ClientInitializer(m,listener);
+		// setup client initialiser pass listener which will get response from
+		// the server
+		ClientInitializer clientInitializer = new ClientInitializer(m, listener);
 		try {
 			Bootstrap b = new Bootstrap();
 			b.group(group).channel(NioSocketChannel.class)
@@ -41,22 +83,6 @@ public class Client {
 			group.shutdownGracefully();
 		}
 
-	}
-	//TODO move this to separate class ClientRunner as it is not a vital part of the Client
-	public static void main(String[] args) throws Exception {
-		LOG.info("Initialising Client");
-		Client c = new Client(49000); 
-		
-		c.send(new ServerMessage("test message", 123), new ResponseListener() {
-			@Override
-			public void response(ServerMessage m) {
-				LOG.info("Recieved from server number : " + m.getNumber()
-						+ " and message :" + m.getMessage());
-				
-			}
-		});
-		
-		
 	}
 
 }
