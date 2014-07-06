@@ -9,15 +9,18 @@ import com.firegnom.proxy.protocol.ServerMessage;
  * The Class ClientRunner.
  */
 public class ClientRunner {
-	
+
 	/** The LOG. */
-	private static final Logger LOG = LoggerFactory.getLogger(ClientRunner.class);
+	private static final Logger LOG = LoggerFactory
+			.getLogger(ClientRunner.class);
 
 	/**
-	 * The main method it takes 3 arguments 
+	 * The main method it takes 3 arguments
 	 *
-	 * @param args the args
-	 * @throws Exception the exception
+	 * @param args
+	 *            the args
+	 * @throws Exception
+	 *             the exception
 	 */
 	public static void main(String[] args) throws Exception {
 		LOG.info("Initialising Client");
@@ -33,10 +36,10 @@ public class ClientRunner {
 		});
 
 	}
-	
-	private static String usage(){
-		return "Usage: ClientRunner [port] number message"+
-				"[port] - is a destinat";
-		
+
+	private static String usage() {
+		return "Usage: ClientRunner [port] number message"
+				+ "[port] - is a destinat";
+
 	}
 }

@@ -3,8 +3,8 @@ package com.firegnom.proxy.protocol;
 public class ServerMessage {
 	private String message;
 	private int number;
-	
-	public ServerMessage(String message , int number) {
+
+	public ServerMessage(String message, int number) {
 		this.message = message;
 		this.setNumber(number);
 	}

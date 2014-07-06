@@ -19,7 +19,8 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
 	/**
 	 * Creates a client-side handler.
 	 */
-	public ClientHandler(ServerMessage message, ResponseListener responseListener) {
+	public ClientHandler(ServerMessage message,
+			ResponseListener responseListener) {
 		this.message = message;
 		this.responseListener = responseListener;
 	}
@@ -27,17 +28,17 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) {
 		ctx.writeAndFlush(message);
-		LOG.info("Sent to server number : "+ message.getNumber() +" and message :"+ message.getMessage());
+		LOG.info("Sent to server number : " + message.getNumber()
+				+ " and message :" + message.getMessage());
 	}
 
-	
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) {
 		ServerMessage m = (ServerMessage) msg;
 		LOG.debug("Recieved from server number : " + m.getNumber()
 				+ " and message :" + m.getMessage());
 		responseListener.response(m);
-		
+
 	}
 
 	@Override
@@ -48,7 +49,7 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
 		// Close the connection when an exception is raised.
-		cause.printStackTrace();
+		LOG.warn("Exception caught in the Channel closing connection", cause);
 		ctx.close();
 	}
 }

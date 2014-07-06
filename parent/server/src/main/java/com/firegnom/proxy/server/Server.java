@@ -65,7 +65,7 @@ public class Server {
 			bootStrap.group(bossGroup, workerGroup)
 					.channel(NioServerSocketChannel.class)
 					.option(ChannelOption.SO_BACKLOG, 100)
-					//This handler is used for debugging purposes
+					// This handler is used for debugging purposes
 					.handler(new LoggingHandler(LogLevel.DEBUG))
 					.childHandler(new ChannelInitializer<SocketChannel>() {
 						@Override

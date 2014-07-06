@@ -41,7 +41,7 @@ public abstract class AbstractProxyHandler extends ChannelInboundHandlerAdapter 
 	 */
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-		LOG.warn("Exception caught in Outbound Channel", cause);
+		LOG.warn("Exception caught in the Channel", cause);
 		closeOnFlush(ctx.channel());
 	}
 }

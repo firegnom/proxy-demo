@@ -9,20 +9,20 @@ public class ServerMessageEncoder extends MessageToByteEncoder<ServerMessage> {
 	@Override
 	protected void encode(ChannelHandlerContext ctx, ServerMessage msg,
 			ByteBuf out) throws Exception {
-		//write number
+		// write number
 		out.writeInt(msg.getNumber());
-		
-		//write message
+
+		// write message
 		int size = 0;
 		if (msg != null && msg.getMessage() != null) {
 			size = msg.getMessage().length();
 		}
 		out.writeInt(size);
-		for (int i = 0 ; i < size ;i ++){
+		for (int i = 0; i < size; i++) {
 			char charAt = msg.getMessage().charAt(i);
 			out.writeChar(charAt);
 		}
-		
+
 	}
 
 }

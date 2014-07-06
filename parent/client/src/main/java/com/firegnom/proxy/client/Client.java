@@ -23,6 +23,9 @@ public class Client {
 	/** The server address. */
 	private String serverAddress = "localhost";
 
+	/** The Constant LOG. */
+	private static final Logger LOG = LoggerFactory.getLogger(Client.class);
+
 	/**
 	 * The Constructor.
 	 *
@@ -46,9 +49,6 @@ public class Client {
 	public Client(int serverPort) {
 		this.serverPort = serverPort;
 	}
-
-	/** The Constant LOG. */
-	private static final Logger LOG = LoggerFactory.getLogger(Client.class);
 
 	/**
 	 * Send.

@@ -45,11 +45,11 @@ public class ProxyOutboundHandler extends AbstractProxyHandler {
 	}
 
 	/**
-	 * Read from the outbound channel and forward that information back to inbound channel 
+	 * Read from the outbound channel and forward that information back to
+	 * inbound channel
 	 * 
-	 * @see
-	 * io.netty.channel.ChannelInboundHandlerAdapter#channelRead(io.netty.channel
-	 * .ChannelHandlerContext, java.lang.Object)
+	 * @see io.netty.channel.ChannelInboundHandlerAdapter#channelRead(io.netty.channel
+	 *      .ChannelHandlerContext, java.lang.Object)
 	 */
 	@Override
 	public void channelRead(final ChannelHandlerContext ctx, Object msg) {
@@ -67,7 +67,8 @@ public class ProxyOutboundHandler extends AbstractProxyHandler {
 	}
 
 	/**
-	 * When Channel is no longer active it is time to flush and close inbound channel
+	 * When Channel is no longer active it is time to flush and close inbound
+	 * channel
 	 * 
 	 * 
 	 * @see io.netty.channel.ChannelInboundHandlerAdapter#channelInactive(io.netty

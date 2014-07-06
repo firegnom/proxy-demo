@@ -8,69 +8,70 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class ProxyConfig.
+ * The Class ProxyConfig is responsible for reading properties file and seting
+ * up defaults for missing configuration.
  */
 public class ProxyConfig {
 
 	/** The Constant FILE_NAME. */
-	private final static String FILE_NAME = "proxy.properties";
+	private static final String FILE_NAME = "proxy.properties";
 
 	/** The Constant LOG. */
-	private static final Logger LOG = LoggerFactory
+	private final static Logger LOG = LoggerFactory
 			.getLogger(ProxyConfig.class);
 
 	// properties keys
 	/** The Constant LOCAL_PORT. */
-	private final static String LOCAL_PORT = "local.port";
+	private static final  String LOCAL_PORT = "local.port";
 
 	/** The Constant REMOTE_PORT. */
-	private final static String REMOTE_PORT = "remote.port";
+	private static final  String REMOTE_PORT = "remote.port";
 
 	/** The Constant REMOTE_HOST. */
-	private final static String REMOTE_HOST = "remote.host";
+	private static final  String REMOTE_HOST = "remote.host";
 
 	/** The Constant TIMEOUT. */
-	private final static String TIMEOUT = "timeout";
+	private static final  String TIMEOUT = "timeout";
 
 	/** The Constant THREADS_BOSS. */
-	private final static String THREADS_BOSS = "threads.boss";
+	private static final  String THREADS_BOSS = "threads.boss";
 
 	/** The Constant THREADS_WORKER. */
-	private final static String THREADS_WORKER = "threads.worker";
+	private static final  String THREADS_WORKER = "threads.worker";
 
 	// defaults
 	/** The Constant DEFALT_LOCAL_PORT. */
-	static final String DEFALT_LOCAL_PORT = "49000";
+	private static final String DEFALT_LOCAL_PORT = "49000";
 
 	/** The Constant DEFALT_REMOTE_HOST. */
-	static final String DEFALT_REMOTE_HOST = "localhost";
+	private static final String DEFALT_REMOTE_HOST = "localhost";
 
 	/** The Constant DEFALT_REMOTE_PORT. */
-	static final String DEFALT_REMOTE_PORT = "49001";
+	private static final String DEFALT_REMOTE_PORT = "49001";
 
 	/** The Constant DEFALT_TIMEOUT. */
-	static final String DEFALT_TIMEOUT = "60";
+	private static  final String DEFALT_TIMEOUT = "60";
 
 	/** The Constant DEFALT_THREADS_BOSS. */
-	private final static String DEFALT_THREADS_BOSS = "1";
+	private static final  String DEFALT_THREADS_BOSS = "1";
 
 	/** The Constant DEFALT_THREADS_WORKER. */
-	private final static String DEFALT_THREADS_WORKER = "16";
+	private static final  String DEFALT_THREADS_WORKER = "16";
 
 	/** The properties. */
 	Properties properties;
 
 	/**
-	 * The Constructor.
+	 * The Constructor takes default config file , specified in FILE_NAME static
+	 * field.
 	 */
 	public ProxyConfig() {
 		init(FILE_NAME);
 	}
 
 	/**
-	 * The Constructor.
+	 * The Constructor takes as a parameter properties file name.
 	 *
 	 * @param fileName
 	 *            the file name
