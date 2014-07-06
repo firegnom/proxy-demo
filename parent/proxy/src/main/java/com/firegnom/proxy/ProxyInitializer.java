@@ -58,7 +58,6 @@ public class ProxyInitializer extends ChannelInitializer<SocketChannel> {
 	public void initChannel(SocketChannel ch) {
 		ch.pipeline().addLast(new ReadTimeoutHandler(timeout))
 				.addLast(new WriteTimeoutHandler(timeout))
-				.addLast(new LoggingHandler(LogLevel.INFO))
 				.addLast(new ProxyInboundHandler(remoteHost, remotePort));
 	}
 }

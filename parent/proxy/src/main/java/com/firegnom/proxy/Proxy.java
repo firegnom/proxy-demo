@@ -65,7 +65,7 @@ public class Proxy {
 			b.group(bossGroup, workerGroup)
 					// Create a non blocking IO channel
 					.channel(NioServerSocketChannel.class)
-					.handler(new LoggingHandler(LogLevel.DEBUG))
+					.handler(new LoggingHandler(LogLevel.INFO))
 					.childHandler(
 							new ProxyInitializer(config.getRemoteHost(), config
 									.getRemotePort(), config.getTimeout()))
