@@ -8,6 +8,7 @@
 	</parent>
 	<artifactId>server</artifactId>
 	
+	<!-- Add main class into manifest file to make jar file an executable -->
 	<build>
         <plugins>
             <plugin>

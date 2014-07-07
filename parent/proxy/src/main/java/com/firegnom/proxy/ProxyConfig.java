@@ -1,5 +1,6 @@
 package com.firegnom.proxy;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,7 +16,7 @@ import org.slf4j.LoggerFactory;
 public class ProxyConfig {
 
 	/** The Constant FILE_NAME. */
-	private static final String FILE_NAME = "proxy.properties";
+	private static final String FILE_NAME = "/proxy.properties";
 
 	/** The Constant LOG. */
 	private final static Logger LOG = LoggerFactory
@@ -23,22 +24,22 @@ public class ProxyConfig {
 
 	// properties keys
 	/** The Constant LOCAL_PORT. */
-	private static final  String LOCAL_PORT = "local.port";
+	private static final String LOCAL_PORT = "local.port";
 
 	/** The Constant REMOTE_PORT. */
-	private static final  String REMOTE_PORT = "remote.port";
+	private static final String REMOTE_PORT = "remote.port";
 
 	/** The Constant REMOTE_HOST. */
-	private static final  String REMOTE_HOST = "remote.host";
+	private static final String REMOTE_HOST = "remote.host";
 
 	/** The Constant TIMEOUT. */
-	private static final  String TIMEOUT = "timeout";
+	private static final String TIMEOUT = "timeout";
 
 	/** The Constant THREADS_BOSS. */
-	private static final  String THREADS_BOSS = "threads.boss";
+	private static final String THREADS_BOSS = "threads.boss";
 
 	/** The Constant THREADS_WORKER. */
-	private static final  String THREADS_WORKER = "threads.worker";
+	private static final String THREADS_WORKER = "threads.worker";
 
 	// defaults
 	/** The Constant DEFALT_LOCAL_PORT. */
@@ -51,13 +52,13 @@ public class ProxyConfig {
 	private static final String DEFALT_REMOTE_PORT = "49001";
 
 	/** The Constant DEFALT_TIMEOUT. */
-	private static  final String DEFALT_TIMEOUT = "60";
+	private static final String DEFALT_TIMEOUT = "60";
 
 	/** The Constant DEFALT_THREADS_BOSS. */
-	private static final  String DEFALT_THREADS_BOSS = "1";
+	private static final String DEFALT_THREADS_BOSS = "1";
 
 	/** The Constant DEFALT_THREADS_WORKER. */
-	private static final  String DEFALT_THREADS_WORKER = "16";
+	private static final String DEFALT_THREADS_WORKER = "16";
 
 	/** The properties. */
 	Properties properties;
@@ -95,14 +96,23 @@ public class ProxyConfig {
 		InputStream input = null;
 
 		try {
-
-			input = Thread.currentThread().getContextClassLoader()
-					.getResourceAsStream(fileName);
+			input = ProxyConfig.class.getResourceAsStream(fileName);
 			properties.load(input);
+		} catch (NullPointerException e){
+			//If resource could not be found in classpath try file input stream
+			try {
+				input = new FileInputStream(fileName);
+				properties.load(input);
+			} catch (FileNotFoundException e1) {
+				LOG.error("Can't find  properties file in specified path :" + FILE_NAME, e);
+			} catch (IOException e1) {
+				LOG.error("Can't load properties file in specified path :" + FILE_NAME, e);
+			}
+		
 		} catch (FileNotFoundException e) {
-			LOG.error("Can't find  properties file :" + FILE_NAME, e);
+			LOG.error("Can't find  properties file in classpath :" + FILE_NAME, e);
 		} catch (IOException e) {
-			LOG.error("Can't load properties file :" + FILE_NAME, e);
+			LOG.error("Can't load properties file in classpath :" + FILE_NAME, e);
 		} finally {
 			// make sure we close everything
 			if (input != null) {

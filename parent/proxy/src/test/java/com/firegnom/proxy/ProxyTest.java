@@ -14,7 +14,7 @@ public class ProxyTest {
 	class ProxtThread extends Thread {
 		@Override
 		public void run() {
-			Proxy p = new Proxy("proxy_run.properties");
+			Proxy p = new Proxy("/proxy_run.properties");
 			try {
 				p.run();
 			} catch (Exception e) {
